@@ -32,6 +32,7 @@ enum {
 struct Note {
 	int frequency;
 	int relative_duration;
+	bool slur; /* whether to "connect" two notes */
 };
 
 static struct Note mario_overworld[] = {
@@ -95,11 +96,11 @@ static struct Note mario_death[] = {
 static struct Note sherlock[] = {
 	{ NOTE_C4, 12 }, { NOTE_G4, 6 }, { NOTE_G4, 12 },
 	{ NOTE_FS4, 24 }, { NOTE_G4, 24 }, { NOTE_GS4, 6 }, { NOTE_G4, 12 },
-	{ NOTE_F4, 12 }, { NOTE_C5, 4 }, { NOTE_C5, 3 },
+	{ NOTE_F4, 12 }, { NOTE_C5, 4, true }, { NOTE_C5, 3 },
 
 	{ NOTE_F4, 12 }, { NOTE_C5, 6 }, { NOTE_C5, 12 },
 	{ NOTE_B4, 24 }, { NOTE_C5, 24 }, { NOTE_D5, 6 }, { NOTE_C5, 12 },
-	{ NOTE_DS5, 3 },
+	{ NOTE_DS5, 3, true },
 	{ NOTE_DS5, 3 },
 	{ NOTE_G5, 12 }, { NOTE_C5, 6 }, { NOTE_C5, 12 },
 	{ NOTE_D5, 12 }, { NOTE_DS5, 12 }, { NOTE_D5, 12 }, { NOTE_C5, 12 },
@@ -119,8 +120,12 @@ static void _play(const struct Note *tune, size_t tune_len, const char *name)
 		Serial.println(name);
 	for (size_t i = 0; i < tune_len; ++i) {
 		int duration = 1000 / tune[i].relative_duration;
-		buzz(tune[i].frequency, duration);
-		delay(1.3 * duration); /* pause between notes */
+		if (tune[i].slur) {
+			buzz(tune[i].frequency, 2.3 * duration);
+		} else {
+			buzz(tune[i].frequency, duration);
+			delay(1.3 * duration); /* pause between notes */
+		}
 		buzz(0, duration);
 	}
 }
