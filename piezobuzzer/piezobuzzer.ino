@@ -15,6 +15,7 @@
  * 2015-12-31
  *
  * References:
+ *   0. http://www.mariopiano.com/mario-sheet-music-overworld-main-theme.html
  *   1. http://www.princetronics.com/supermariothemesong/
  *   2. http://www.linuxcircle.com/2013/03/31/playing-mario-bros-tune-with-arduino-and-piezo-buzzer/
  */
@@ -33,34 +34,34 @@ struct Note {
 	int relative_duration;
 };
 
-static struct Note mario_main_theme[] = {
-	{ NOTE_E7, 12 }, { NOTE_E7, 12 }, { 0, 12 },       { NOTE_E7, 12 },
-	{ 0, 12 },       { NOTE_C7, 12 }, { NOTE_E7, 12 }, { 0, 12 },
-	{ NOTE_G7, 12 }, { 0, 12 },       { 0, 12 },       { 0, 12 },
-	{ NOTE_G6, 12 }, { 0, 12 },       { 0, 12 },       { 0, 12 },
+static struct Note mario_overworld[] = {
+	{ NOTE_E5, 12 }, { NOTE_E5, 12 }, { 0, 12 },       { NOTE_E5, 12 },
+	{ 0, 12 },       { NOTE_C5, 12 }, { NOTE_E5, 12 }, { 0, 12 },
+	{ NOTE_G5, 12 }, { 0, 12 },       { 0, 12 },       { 0, 12 },
+	{ NOTE_G4, 12 }, { 0, 12 },       { 0, 12 },       { 0, 12 },
 
-	{ NOTE_C7, 12 }, { 0, 12 },        { 0, 12 },       { NOTE_G6, 12 },
-	{ 0, 12 },       { 0, 12 },        { NOTE_E6, 12 }, { 0, 12 },
-	{ 0, 12 },       { NOTE_A6, 12 },  { 0, 12 },       { NOTE_B6, 12 },
-	{ 0, 12 },       { NOTE_AS6, 12 }, { NOTE_A6, 12 }, { 0, 12 },
+	{ NOTE_C5, 12 }, { 0, 12 },        { 0, 12 },       { NOTE_G4, 12 },
+	{ 0, 12 },       { 0, 12 },        { NOTE_E4, 12 }, { 0, 12 },
+	{ 0, 12 },       { NOTE_A4, 12 },  { 0, 12 },       { NOTE_B4, 12 },
+	{ 0, 12 },       { NOTE_AS4, 12 }, { NOTE_A4, 12 }, { 0, 12 },
 
-	{ NOTE_G6, 9 },  { NOTE_E7, 9 },  { NOTE_G7, 9 },
-	{ NOTE_A7, 12 }, { 0, 12 },       { NOTE_F7, 12 }, { NOTE_G7, 12 },
-	{ 0, 12 },       { NOTE_E7, 12 }, { 0, 12 },       { NOTE_C7, 12 },
-	{ NOTE_D7, 12 }, { NOTE_B6, 12 }, { 0, 12 },       { 0, 12 },
+	{ NOTE_G4, 9 },  { NOTE_E5, 9 },  { NOTE_G5, 9 },
+	{ NOTE_A5, 12 }, { 0, 12 },       { NOTE_F5, 12 }, { NOTE_G5, 12 },
+	{ 0, 12 },       { NOTE_E5, 12 }, { 0, 12 },       { NOTE_C5, 12 },
+	{ NOTE_D5, 12 }, { NOTE_B4, 12 }, { 0, 12 },       { 0, 12 },
 
-	{ NOTE_C7, 12 }, { 0, 12 },        { 0, 12 },       { NOTE_G6, 12 },
-	{ 0, 12 },       { 0, 12 },        { NOTE_E6, 12 }, { 0, 12 },
-	{ 0, 12 },       { NOTE_A6, 12 },  { 0, 12 },       { NOTE_B6, 12 },
-	{ 0, 12 },       { NOTE_AS6, 12 }, { NOTE_A6, 12 }, { 0, 12 },
+	{ NOTE_C5, 12 }, { 0, 12 },        { 0, 12 },       { NOTE_G4, 12 },
+	{ 0, 12 },       { 0, 12 },        { NOTE_E4, 12 }, { 0, 12 },
+	{ 0, 12 },       { NOTE_A4, 12 },  { 0, 12 },       { NOTE_B4, 12 },
+	{ 0, 12 },       { NOTE_AS4, 12 }, { NOTE_A4, 12 }, { 0, 12 },
 
-	{ NOTE_G6, 9 },  { NOTE_E7, 9 },  { NOTE_G7, 9 },
-	{ NOTE_A7, 12 }, { 0, 12 },       { NOTE_F7, 12 }, { NOTE_G7, 12 },
-	{ 0, 12 },       { NOTE_E7, 12 }, { 0, 12 },       { NOTE_C7, 12 },
-	{ NOTE_D7, 12 }, { NOTE_B6, 12 }, { 0, 12 },       { 0, 12 },
+	{ NOTE_G4, 9 },  { NOTE_E5, 9 },  { NOTE_G5, 9 },
+	{ NOTE_A5, 12 }, { 0, 12 },       { NOTE_F5, 12 }, { NOTE_G5, 12 },
+	{ 0, 12 },       { NOTE_E5, 12 }, { 0, 12 },       { NOTE_C5, 12 },
+	{ NOTE_D5, 12 }, { NOTE_B4, 12 }, { 0, 12 },       { 0, 12 },
 };
 
-static struct Note underworld_melody[] = {
+static struct Note mario_underworld[] = {
 	{ NOTE_C4, 12 }, { NOTE_C5, 12 }, { NOTE_A3, 12 }, { NOTE_A4, 12 },
 	{ NOTE_AS3, 12 }, { NOTE_AS4, 12 }, { 0, 6 },
 	{ 0, 3 },
@@ -81,6 +82,14 @@ static struct Note underworld_melody[] = {
 	{ NOTE_GS4, 10 }, { NOTE_DS4, 10 }, { NOTE_B3, 10 },
 	{ NOTE_AS3, 10 }, { NOTE_A3, 10 }, { NOTE_GS3, 10 },
 	{ 0, 3 }, { 0, 3 }, { 0, 3 },
+};
+
+static struct Note mario_death[] = {
+	{ NOTE_C5, 24 }, { NOTE_CS5, 24 }, { NOTE_D5, 36 }, { 0, 12 }, { 0, 6 },
+	{ NOTE_B4, 12 }, { NOTE_F5, 12 }, { 0, 12 }, { NOTE_F5, 12 },
+	{ NOTE_F5, 9 }, { NOTE_E5, 9 }, { NOTE_D5, 9 },
+	{ NOTE_C5, 12 }, { NOTE_E4, 12 }, { 0, 12 }, { NOTE_E4, 12 },
+	{ NOTE_C4, 12 }, { 0, 12 }, { 0, 6 },
 };
 
 static void _play(const struct Note *tune, size_t tune_len, const char *name)
@@ -130,6 +139,7 @@ void setup(void)
 
 void loop()
 {
-	play(mario_main_theme);
-	play(underworld_melody);
+	play(mario_overworld);
+	play(mario_underworld);
+	play(mario_death);
 }
