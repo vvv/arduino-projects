@@ -92,6 +92,27 @@ static struct Note mario_death[] = {
 	{ NOTE_C4, 12 }, { 0, 12 }, { 0, 6 },
 };
 
+static struct Note sherlock[] = {
+	{ NOTE_C4, 12 }, { NOTE_G4, 6 }, { NOTE_G4, 12 },
+	{ NOTE_FS4, 24 }, { NOTE_G4, 24 }, { NOTE_GS4, 6 }, { NOTE_G4, 12 },
+	{ NOTE_F4, 12 }, { NOTE_C5, 4 }, { NOTE_C5, 3 },
+
+	{ NOTE_F4, 12 }, { NOTE_C5, 6 }, { NOTE_C5, 12 },
+	{ NOTE_B4, 24 }, { NOTE_C5, 24 }, { NOTE_D5, 6 }, { NOTE_C5, 12 },
+	{ NOTE_DS5, 3 },
+	{ NOTE_DS5, 3 },
+	{ NOTE_G5, 12 }, { NOTE_C5, 6 }, { NOTE_C5, 12 },
+	{ NOTE_D5, 12 }, { NOTE_DS5, 12 }, { NOTE_D5, 12 }, { NOTE_C5, 12 },
+
+	{ NOTE_F5, 12 }, { NOTE_C5, 12 }, { 0, 6 },
+	{ 0, 6 }, { 0, 12 }, { NOTE_C5, 24 }, { NOTE_D5, 24 },
+	{ NOTE_DS5, 12 }, { NOTE_DS5, 24 }, { NOTE_F5, 24 }, { NOTE_D5, 12 }, { NOTE_D5, 24 }, { NOTE_DS5, 24 },
+
+	{ NOTE_C5, 12 }, { NOTE_C5, 24 }, { NOTE_D5, 24 }, { NOTE_B4, 12 }, { NOTE_GS4, 24 }, { NOTE_G4, 24 },
+	{ NOTE_C5, 3 },
+	{ 0, 3 },
+};
+
 static void _play(const struct Note *tune, size_t tune_len, const char *name)
 {
 	if (name != NULL)
@@ -142,4 +163,5 @@ void loop()
 	play(mario_overworld);
 	play(mario_underworld);
 	play(mario_death);
+	play(sherlock);
 }
