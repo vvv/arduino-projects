@@ -83,7 +83,7 @@ static struct Note underworld_melody[] = {
 	{ 0, 3 }, { 0, 3 }, { 0, 3 },
 };
 
-static void play(const struct Note *tune, size_t tune_len, const char *name)
+static void _play(const struct Note *tune, size_t tune_len, const char *name)
 {
 	if (name != NULL)
 		Serial.println(name);
@@ -94,6 +94,7 @@ static void play(const struct Note *tune, size_t tune_len, const char *name)
 		buzz(0, duration);
 	}
 }
+#define play(tune) _play(tune, ARRAY_SIZE(tune), #tune)
 
 /*
  * `frequency' is the number of cycles per second.
@@ -101,12 +102,14 @@ static void play(const struct Note *tune, size_t tune_len, const char *name)
  */
 static void buzz(long frequency, long duration)
 {
+	/* XXX assert(frequency != 0) */
 	digitalWrite(PIN_LED, HIGH);
 	/*
 	 * Delay between transitions =
 	 * 1 second's worth of microseconds / frequency / 2,
 	 * where 2 is number of phases (HIGH and LOW) per cycle.
 	 */
+	/* XXX Why doesn't the program crash when frequency == 0? */
 	long delay = 1000000 / frequency / 2;
 	long ncycles = frequency * duration / 1000;
 	for (long i = 0; i < ncycles; i++) {
@@ -127,9 +130,6 @@ void setup(void)
 
 void loop()
 {
-	play(mario_main_theme, ARRAY_SIZE(mario_main_theme),
-	     "Mario main theme");
-	play(mario_main_theme, ARRAY_SIZE(mario_main_theme), NULL);
-	play(underworld_melody, ARRAY_SIZE(underworld_melody),
-	     "Underworld melody");
+	play(mario_main_theme);
+	play(underworld_melody);
 }
