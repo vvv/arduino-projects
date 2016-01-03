@@ -126,7 +126,6 @@ static void _play(const struct Note *tune, size_t tune_len, const char *name)
 			buzz(tune[i].frequency, duration);
 			delay(1.3 * duration); /* pause between notes */
 		}
-		buzz(0, duration);
 	}
 }
 #define play(tune) _play(tune, ARRAY_SIZE(tune), #tune)
