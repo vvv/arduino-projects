@@ -4,7 +4,7 @@
  *   - https://en.wikipedia.org/wiki/Scientific_pitch_notation#Table_of_note_frequencies
  *   - http://soundcalledmusic.com/scientific-pitch-notation/
  */
-enum Notes {
+enum Note_Freq {
 	NOTE_B0  = 31,
 	NOTE_C1  = 33,
 	NOTE_CS1 = 35,
