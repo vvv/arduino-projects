@@ -13,6 +13,7 @@
  * TODO:
  *   - Reduce memory footprint by using bit fields for struct Note.
  *   - Use PROGMEM.
+ *   - Get a second buzzer to play bass notes on.
  *
  * References:
  *   0. http://www.mariopiano.com/mario-sheet-music-overworld-main-theme.html
@@ -88,9 +89,9 @@ static unsigned int dot(unsigned int inverted_value)
 }
 
 /* https://youtu.be/P5L6Qgmcjfw */
-static struct Note sherlock[] = {
+static const struct Note sherlock[] = {
 	mm(200),
-#define XXX_LEFTY 0
+#define XXX_LEFTY 1
 #if XXX_LEFTY
 	n(C3,4), n(G3,4), n(G2,4), n(G3,4),
 	n(C3,4), n(G3,4), n(G2,4), n(G3,4),
@@ -119,6 +120,51 @@ static struct Note sherlock[] = {
 };
 
 #if 0 /* XXX -------------------------------------------------------- */
+static struct Note mario_overworld[] = {
+	mm(400), // XXX Not sure about this.
+	n(E5,4), n(E5,4), r(4), n(E5,4), r(4), n(C5,4), n(E5,4), r(4),
+	n(G5,4), r(4), r(4), r(4), n(G4,4), r(4), r(4), r(4),
+	n(C5,4), r(4), r(4), n(G4,4), r(4), r(4), n(E4,4), r(4),
+	r(4), n(A4,4), r(4), n(B4,4), r(4), n(AS4,4), n(A4,4), r(4),
+	n(G4,3), n(E5,3), n(G5,3), n(A5,4), r(4), n(F5,4), n(G5,4),
+	r(4), n(E5,4), r(4), n(C5,4), n(D5,4), n(B4,4), r(4), r(4),
+	n(C5,4), r(4), r(4), n(G4,4), r(4), r(4), n(E4,4), r(4),
+	r(4), n(A4,4), r(4), n(B4,4), r(4), n(AS4,4), n(A4,4), r(4),
+	n(G4,3), n(E5,3), n(G5,3), n(A5,4), r(4), n(F5,4), n(G5,4),
+	r(4), n(E5,4), r(4), n(C5,4), n(D5,4), n(B4,4), r(4), r(4)
+};
+
+static struct Note mario_underworld[] = {
+	{ NOTE_C4, 12 }, { NOTE_C5, 12 }, { NOTE_A3, 12 }, { NOTE_A4, 12 },
+	{ NOTE_AS3, 12 }, { NOTE_AS4, 12 }, { 0, 6 },
+	{ 0, 3 },
+	{ NOTE_C4, 12 }, { NOTE_C5, 12 }, { NOTE_A3, 12 }, { NOTE_A4, 12 },
+	{ NOTE_AS3, 12 }, { NOTE_AS4, 12 }, { 0, 6 },
+	{ 0, 3 },
+	{ NOTE_F3, 12 }, { NOTE_F4, 12 }, { NOTE_D3, 12 }, { NOTE_D4, 12 },
+	{ NOTE_DS3, 12 }, { NOTE_DS4, 12 }, { 0, 6 },
+	{ 0, 3 },
+	{ NOTE_F3, 12 }, { NOTE_F4, 12 }, { NOTE_D3, 12 }, { NOTE_D4, 12 },
+	{ NOTE_DS3, 12 }, { NOTE_DS4, 12 }, { 0, 6 },
+	{ 0, 6 }, { NOTE_DS4, 18 }, { NOTE_CS4, 18 }, { NOTE_D4, 18 },
+	{ NOTE_CS4, 6 }, { NOTE_DS4, 6 },
+	{ NOTE_DS4, 6 }, { NOTE_GS3, 6 },
+	{ NOTE_G3, 6 }, { NOTE_CS4, 6 },
+	{ NOTE_C4, 18 }, { NOTE_FS4, 18 }, { NOTE_F4, 18 },
+	{ NOTE_E3, 18 }, { NOTE_AS4, 18 }, { NOTE_A4, 18 },
+	{ NOTE_GS4, 10 }, { NOTE_DS4, 10 }, { NOTE_B3, 10 },
+	{ NOTE_AS3, 10 }, { NOTE_A3, 10 }, { NOTE_GS3, 10 },
+	{ 0, 3 }, { 0, 3 }, { 0, 3 },
+};
+
+static struct Note mario_death[] = {
+	{ NOTE_C5, 24 }, { NOTE_CS5, 24 }, { NOTE_D5, 36 }, { 0, 12 }, { 0, 6 },
+	{ NOTE_B4, 12 }, { NOTE_F5, 12 }, { 0, 12 }, { NOTE_F5, 12 },
+	{ NOTE_F5, 9 }, { NOTE_E5, 9 }, { NOTE_D5, 9 },
+	{ NOTE_C5, 12 }, { NOTE_E4, 12 }, { 0, 12 }, { NOTE_E4, 12 },
+	{ NOTE_C4, 12 }, { 0, 12 }, { 0, 6 },
+};
+
 /* http://www.8notes.com/scores/1110.asp */
 static struct Note happy_birthday[] = {
 	n(C4,dot(8)), n(C4,16),
